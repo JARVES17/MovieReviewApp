@@ -1,0 +1,8 @@
+{
+    "explorer.expandSingleFolderWorkspaces": true,
+    "cmake.autoSelectActiveFolder": true,
+    "vsicons.presets.hideFolders": false,
+    "vsicons.presets.foldersAllDefaultIcon": false,
+    "workbench.tree.expandMode": "singleClick",
+    "explorer.sortOrder": "default"
+}
