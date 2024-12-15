@@ -16,7 +16,8 @@ export async function POST(request:NextRequest) {
          collection=await Entertainement.findById(id).populate("replies")
         return NextResponse.json({success:true,collection},{status:200})
 
-    } catch (error:any) {
+    } catch (error: unknown) {
+        console.log(error)
         return NextResponse.json({messgae:error},{status:300})
         
     }
@@ -27,15 +28,15 @@ export async function PUT(request:NextRequest) {
         const {id,rating}=requestBody
         console.log(requestBody)
         const data = await Entertainement.findById({ _id: id })
-        let paresVal = parseFloat(rating)
-        console.log(typeof(rating))
+        const paresVal = parseFloat(rating)
+      
         await Entertainement.updateOne({ _id: id }, {
             rating: data.rating+paresVal,
             totalRatingCount:parseFloat(data.totalRatingCount)+1,
         })
         return NextResponse.json({success:true,message:"Your rating added succesfully"},{status:200})
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.log(error)
         return NextResponse.json({messgae:error},{status:300})
         

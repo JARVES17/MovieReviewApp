@@ -1,3 +1,4 @@
+import { entertainemtData } from "@/app/types/types";
 import connect from "@/dbConfig/dbConfig";
 import Entertainement from "@/Models/entertainmentModel";
 import { writeFile } from "fs/promises";
@@ -61,7 +62,7 @@ export async function POST(request: NextRequest) {
 export async function GET() {
     try {
         
-        const data:any = await Entertainement.find()
+        const data:entertainemtData |any = await Entertainement.find()
         if (!data) {
             return NextResponse.json({success:false,message:"Something Went Wrong Try again later"},{status:404})
         }

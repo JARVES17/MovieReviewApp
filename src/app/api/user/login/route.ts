@@ -36,6 +36,7 @@ export async function POST(request: NextRequest) {
         return response;
         
     } catch (error: unknown) {
+        console.log(error)
         return NextResponse.json({message:"error occured while loging in"},{status:300})
     }
 }

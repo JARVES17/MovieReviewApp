@@ -21,6 +21,7 @@ export interface commentArray{
 
 export interface userData{
     id: string,
+    username:string,
     name: string,
     password: string,
     isAdmin: boolean,

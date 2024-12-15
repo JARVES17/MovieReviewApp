@@ -4,7 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import { AiFillEnvironment } from "react-icons/ai";
 import { IoLogIn } from "react-icons/io5";
 import { IoMdSettings, IoMdHome } from "react-icons/io";
-import { FaBookmark, FaSearch } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa";
 import { MdLocalMovies, MdLiveTv } from "react-icons/md";
 import Link from "next/link"
 import { toast } from "sonner";
@@ -29,7 +29,8 @@ export default function Navbar() {
             if (response.data.success) {
                 setData(response.data.alldata)
             }
-        } catch (error:unknown) {
+        } catch (error: unknown) {
+            console.log(error)
             toast.error("Failed to featch Data")
             
         }

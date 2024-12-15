@@ -1,11 +1,11 @@
 "use client"
 import Navbar from '@/components/Navbar/Navbar'
 import axios from 'axios'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
-export default function addEntertainement() {
+export default function AddEntertainement() {
     const router = useRouter()
     const genera = [
         {
