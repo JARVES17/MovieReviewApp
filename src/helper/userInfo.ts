@@ -1,7 +1,8 @@
-import jwt, { JwtPayload } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 import { NextRequest, NextResponse } from "next/server"
 
-export const getInfo = (request: NextRequest):any|JwtPayload=>{
+
+export const getInfo = (request: NextRequest)=>{
     try {
         const token = request.cookies.get("token")?.value 
     
@@ -9,7 +10,9 @@ export const getInfo = (request: NextRequest):any|JwtPayload=>{
         return userData
         
     } catch (error:unknown) {
-       return NextResponse.json({ message: "token cant verify", success: false,error }, { status: 300 })
+
+        console.log(error)
+        return
         
         
     }

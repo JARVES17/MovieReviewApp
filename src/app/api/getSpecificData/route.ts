@@ -26,7 +26,7 @@ export async function PUT(request:NextRequest) {
     try {
         const requestBody = await request.json()
         const {id,rating}=requestBody
-        console.log(requestBody)
+      
         const data = await Entertainement.findById({ _id: id })
         const paresVal = parseFloat(rating)
       

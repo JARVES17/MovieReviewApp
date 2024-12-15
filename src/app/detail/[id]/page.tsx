@@ -9,11 +9,15 @@ import { toast } from "sonner"
 import Rating from "@/components/Rating"
 import { commentArray, entertainemtData, userData } from "@/app/types/types"
 
+interface DetailSpecificProps {
+    params: {
+        id: string|any; 
+    };
+}
 
-
-export default function DeatilSpecific({ params }: number | any) {
-    const { id }:number | any = React.use<string>(params)
-    
+export default function DeatilSpecific({ params }: DetailSpecificProps) {
+    const { id }=params
+    console.log(typeof(id),"id")
     const [userData, setUserData] = useState<userData>()
     const [added, setAdded] = useState(false)
     const [data, setData] = useState<entertainemtData>()
@@ -140,7 +144,7 @@ export default function DeatilSpecific({ params }: number | any) {
                 </div>
                 {getcommentData && (
                     <div className="w-full">
-                        {commentData && getcommentData.map((values: commentArray |any , ind: number) => <Comment userInfo={userData} key={ind} id={values._id} movieId={data._id} comment={values.value} userId={values.UserName}  />)}
+                        {commentData && getcommentData.map((values: commentArray|any , ind: number) => <Comment userInfo={userData} key={ind} id={values._id} movieId={data._id} comment={values.value} userId={values.UserName}  />)}
                     </div>
 
                 )}

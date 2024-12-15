@@ -2,8 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import connect from "@/dbConfig/dbConfig";
 import { getInfo } from "@/helper/userInfo";
 import User from "@/Models/userModel";
-import { JwtPayload } from "jsonwebtoken";
-
+interface JwtPayload{
+    id: string,
+    username: string,
+    email:string
+}
 connect()   
 export async function GET(request: NextRequest) {
     try {
@@ -33,7 +36,8 @@ export async function PUT(request:NextRequest) {
         })
         const user = await User.findById(userData.id)
         return NextResponse.json({message:"updated Successfully",user,success:true},{status:200})
-    } catch (error:unknown) {
+    } catch (error: unknown) {
+        console.log(error)
         return NextResponse.json({message:"error while updating user"},{status:300})
     }
 }
