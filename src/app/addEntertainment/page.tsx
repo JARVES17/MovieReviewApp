@@ -61,10 +61,10 @@ export default function AddEntertainement() {
                 setdata({name:"",description:"",isMovie:false,file:null})
             }
             
-        } catch (error: any) {
+        } catch (error: unknown) {
             
-            console.log(error.response.data.message)
-            toast.error(error.response.data.message)
+            console.log(error)
+            toast.error("cant add movies")
         }
         
     }

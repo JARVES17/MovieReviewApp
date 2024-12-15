@@ -11,8 +11,8 @@ import { commentArray, entertainemtData, userData } from "@/app/types/types"
 
 
 
-export default function DeatilSpecific({ params }: any) {
-    const { id }: any = React.use(params)
+export default function DeatilSpecific({ params }: number | any) {
+    const { id }:number | any = React.use<string>(params)
     
     const [userData, setUserData] = useState<userData>()
     const [added, setAdded] = useState(false)
@@ -55,6 +55,7 @@ export default function DeatilSpecific({ params }: any) {
               
             
         } catch (error: unknown) {
+            console.log(error)
             toast.error("Cant add to watchList")
         }
     }
@@ -139,7 +140,7 @@ export default function DeatilSpecific({ params }: any) {
                 </div>
                 {getcommentData && (
                     <div className="w-full">
-                        {commentData && getcommentData.map((values: any, ind: number) => <Comment userInfo={userData} key={ind} id={values._id} movieId={data._id} comment={values.value} userId={values.UserName}  />)}
+                        {commentData && getcommentData.map((values: commentArray |any , ind: number) => <Comment userInfo={userData} key={ind} id={values._id} movieId={data._id} comment={values.value} userId={values.UserName}  />)}
                     </div>
 
                 )}

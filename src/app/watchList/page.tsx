@@ -25,7 +25,7 @@ export default function WatchList() {
                 
                 console.log(response.data.alldata)
                 setResponseData(response.data.alldata)
-            } catch (error: any) {
+            } catch (error: unknown) {
                 console.log(error)
             }
         }

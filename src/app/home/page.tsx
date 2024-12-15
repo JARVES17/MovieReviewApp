@@ -17,7 +17,7 @@ export default function HomePage() {
                 console.log(response.data)
 
                 setResponseData(response.data.alldata)
-            } catch (error: any) {
+            } catch (error: unknown) {
                 console.log(error)
             }
         }

@@ -23,9 +23,9 @@ export default function LoginpPage() {
         toast.success(response.data.message)
       }
 
-    } catch (error) {
+    } catch (error:unknown) {
       console.log(error)
-      toast.error(error.response.data.message)
+      toast.error("error in login")
 
 
     }

@@ -61,8 +61,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
     try {
-        
-        const data:entertainemtData |any = await Entertainement.find()
+        const data:entertainemtData|any = await Entertainement.find()
         if (!data) {
             return NextResponse.json({success:false,message:"Something Went Wrong Try again later"},{status:404})
         }

@@ -8,7 +8,7 @@ connect()
 export async function GET(request: NextRequest) {
     try {
        
-        const userData:JwtPayload | any = getInfo(request)
+        const userData:JwtPayload |any= getInfo(request)
        
         const userDtata = await User.findById({ _id: userData.id })
       
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
 
 export async function PUT(request:NextRequest) {
     try {
-        const userData:JwtPayload | any = getInfo(request)
+        const userData:JwtPayload|any = getInfo(request)
         const requestBody = await request.json()
         const { userName, name, password } = requestBody
         
