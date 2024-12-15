@@ -1,6 +1,5 @@
 "use client"
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
@@ -11,7 +10,7 @@ interface entertainemtData {
   url: string,
   genera:string[]
 }
-const Structure = ({ id, name, description, url }: entertainemtData) => {
+const Structure = ({ id, name, url }: entertainemtData) => {
     const router = useRouter()
     const handelRedirect = () => {
         router.push(`/detail/${id}`)

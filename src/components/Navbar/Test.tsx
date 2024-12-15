@@ -36,9 +36,9 @@ export default function Test() {
                 <h1 className={`text-white origin-left  text-2xl ${!open && "scale-0"} duration-300 `}> Reviewer</h1>
             </div>
             <div className={`flex items-center rounded-md bg-light-white mt-6 ${open ? "px-4 " : "p-2.5" } py-2`}>
-                <BsSearch className={`text-white text-lg block float-left cursor-pointer ${open && "mr-2"}`} />
+                <BsSearch className={`text-white text-lg block float-left cursor-pointer `} />
 
-                <input type="search" placeholder="Search" className={`ml-1 text-base bg-transparent w-full text-white focus:outline-none ${!open && "hidden"}`} />
+                <input type="search" placeholder="Search" className={`ml-1 text-base bg-transparent w-full text-white focus:outline-none $`} />
             </div>
 
             <ul className="pt-2">

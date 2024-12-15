@@ -11,6 +11,7 @@ export default {
       colors: {
         "dark-purple": "#081A51",
         "light-white": "rgba(255,255,255,0.18)",
+        
       },
       dropShadow: {
         '3xl': '0 35px 35px rgba(0, 0, 0, 0.25)',

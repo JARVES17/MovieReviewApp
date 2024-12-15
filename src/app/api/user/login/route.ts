@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
             email:userPresent.email
         }
         const token = jwt.sign(tokenPayload, process.env.HIDDEN_KEY!)
-        
+        console.log("here")
         const response = NextResponse.json({
             message: "welcome to MovieReviewApp",
             success: true,

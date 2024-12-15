@@ -4,42 +4,44 @@ import React, { useEffect, useState } from 'react'
 import Comments from "@/components/Comment"
 import { toast } from 'sonner'
 
-export default function Comment({ comment, childId, userId, id }: any) {
+export default function Comment({ comment, userId, id, movieId, userInfo }: any) {
 
-  const[childComments,setChildComments]=useState<any>()
-  const[replyInput,setReplyInput]=useState(false)
-  const [commentData, setCommentData] = useState({
-          commentId: id,
-          comment: "",
-          userId:""
-      })
-  const AddReply = async() => {
-    try {
-      setReplyInput(false)
-      const responseOfComments = await axios.post("/api/comments/reply/", commentData)
-      setChildComments(responseOfComments.data.commentData)
-      console.log(responseOfComments)
-    } catch (error) {
-      toast.error("Cant add Comment")
-      console.log(error)
-    }
+  const [commentDelte, setCommetDelete] = useState(true)
+  
+  const obj:any = {
+    commentId: id,
+    movieId: movieId
     
   }
+  console.log(userInfo,userId)
+  const deleteComment = async () => {
+    try {
+      const response = await axios.patch("/api/comments/add/", obj)
+      
+      if (response.data.success) {
+        setCommetDelete(false)
+        toast.success("comment deleted succesfully")
+      }
+    } catch (error:any) {
+      toast.error("error while deleting comment")
+      
+    }
+  }
+  useEffect(() => {
+    
+  },[])
   return (
     
-    <div className="border border-black my-5 flex flex-col">
-      
-      <p className='inline-flex'>{comment}</p>
-      {/* <button className="bg-blue-500 inline-flex justify-center text-white p-2 border rounded-md w-min p-y"
-        onClick={() => setReplyInput(true)}>Reply</button>  
-      {replyInput && 
-        (<div>
-        <input className='border rounded-md border-gray-600 p-1 w-80'
-          value={commentData.comment} onChange={(e) => setCommentData({ ...commentData, comment: e.target.value })}/>
-        <button onClick={AddReply}>Add</button>
-      </div>)
-      }
-     */}
+    <div className={`border rounded bg-[#e6e6e6]  p-2 my-5 flex flex-col justify-end  ${commentDelte?"":"hidden"}`}>
+      <p className='font-semibold underline text-dark-purple'>{userId}</p>
+      <p className='inline-flex ml-20 font-serif justify-between'>Comment:{comment}
+        {userInfo.username===userId?
+          <button className='p-2 bg-red-500 text-white border rounded-md' onClick={deleteComment}>Delete</button>:""
+        }
+        
+      </p>
+    
+     
       
     </div>
     

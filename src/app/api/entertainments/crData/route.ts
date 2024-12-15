@@ -1,4 +1,5 @@
 import connect from "@/dbConfig/dbConfig";
+import { getInfo } from "@/helper/userInfo";
 import Entertainement from "@/Models/entertainmentModel";
 import { writeFile } from "fs/promises";
 import {NextResponse,NextRequest} from "next/server"
@@ -16,6 +17,7 @@ export async function POST(request: NextRequest) {
         const file = requestBody.get("file") as File
         const generas = requestBody.get("genera") as string
         const retriveArr=JSON.parse(generas)
+        
         
         let arr:string[]=[]
        retriveArr.forEach((element:{value:string}) => {
@@ -41,7 +43,9 @@ export async function POST(request: NextRequest) {
             description: description,
             isMovie: isMovie,
             image: getPath,
-            genera:arr,
+            genera: arr,
+            rating: 0,
+            totalRatingCount:0
             
         })
         return NextResponse.json({

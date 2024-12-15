@@ -4,16 +4,9 @@ import Structure from "@/components/Structure";
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { entertainemtData } from "../types/types";
 
-interface entertainemtData {
-    _id: string,
-    name: string,
-    description: string,
-    image: string,
-    genera: [string],
-    comments: [string]
 
-}
 export default function HomePage() {
 
     const [responseData, setResponseData] = useState<[entertainemtData]>()

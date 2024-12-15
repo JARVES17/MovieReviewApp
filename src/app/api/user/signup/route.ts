@@ -8,8 +8,8 @@ connect()
 export async function POST(request: NextRequest) {
     try {
         const requestbody=await request.json()
-        const{username,email,password}=requestbody
-
+        const{username,email,name,password}=requestbody
+        console.log()
         const userPresent=await User.findOne({email:email})
 
         if (userPresent) {
@@ -18,7 +18,8 @@ export async function POST(request: NextRequest) {
         const user = await User.create({
             username: username,
             email: email,
-            password:password
+            password: password,
+            name:name,
             
         })
 

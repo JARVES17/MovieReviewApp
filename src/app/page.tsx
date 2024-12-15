@@ -19,7 +19,7 @@ export default function LoginpPage() {
       const response = await axios.post("/api/user/login", user)
       console.log(response)
       if (response.data.success) {
-        routeTo.push("/profile")
+        routeTo.push("/home")
         toast.success(response.data.message)
       }
 

@@ -5,8 +5,11 @@ const commentSchema = new mongoose.Schema({
         type:String
     },
     entertainemtId:{type:mongoose.Schema.ObjectId, ref:"Entertainement"},
-    childId: [{type:mongoose.Schema.ObjectId,ref:"Comment"}],
-    userId:{type:mongoose.Types.ObjectId,ref:"User"}
+   
+    UserName: {
+        type: String,
+        required:true,
+    }
 
 }, { timestamps: true })
 

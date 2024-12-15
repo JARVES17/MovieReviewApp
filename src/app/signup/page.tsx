@@ -23,7 +23,7 @@ export default function SignupPage() {
             console.log(response)
             if (response.data.success) {
                 toast.success(`${response.data.user.username} you have successfully signed up`)
-                routeTo.push("/login")
+                routeTo.push("/")
             }
             
         } catch (error: any) {
@@ -52,12 +52,21 @@ export default function SignupPage() {
 
                 </div>
                 <div className="w-[80%] flex flex-col gap-1">
-                    <label htmlFor="email" className="text-gray-500">Name</label>
-                    <input id="email"
+                    <label htmlFor="name" className="text-gray-500">Name</label>
+                    <input id="name"
                         className="rounded border-gray-300 border focus:outline-none p-2 text-black "
                         placeholder="Name*"
-                        value={user.email}
+                        value={user.name}
                         onChange={(e) => setUser({ ...user, name: e.target.value })} />
+
+                </div>
+                <div className="w-[80%] flex flex-col gap-1">
+                    <label htmlFor="UserName" className="text-gray-500">UserName</label>
+                    <input id="UserName"
+                        className="rounded border-gray-300 border focus:outline-none p-2 text-black "
+                        placeholder="UserName*"
+                        value={user.username}
+                        onChange={(e) => setUser({ ...user, username: e.target.value })} />
 
                 </div>
 
