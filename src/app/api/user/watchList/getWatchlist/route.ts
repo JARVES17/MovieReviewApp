@@ -19,8 +19,8 @@ export async function GET(request: NextRequest) {
       
         return NextResponse.json({message:"watchListData", success:true,alldata},{status:200})
         
-    } catch (error:any) {
-        return NextResponse.json({message:error.message,success:false},{status:300})
+    } catch (error:unknown) {
+        return NextResponse.json({message:error,success:false},{status:300})
         
     }
 }

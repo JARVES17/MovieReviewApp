@@ -18,3 +18,12 @@ export interface commentArray{
         userId: string,
 
 }
+
+export interface userData{
+    id: string,
+    name: string,
+    password: string,
+    isAdmin: boolean,
+    watchList:[entertainemtData]
+    
+}

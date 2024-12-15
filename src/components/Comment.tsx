@@ -1,18 +1,16 @@
 "use client"
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import Comments from "@/components/Comment"
 import { toast } from 'sonner'
 
 export default function Comment({ comment, userId, id, movieId, userInfo }: any) {
 
   const [commentDelte, setCommetDelete] = useState(true)
   
-  const obj:any = {
+  const obj: { commentId: string; movieId: string } = {
     commentId: id,
     movieId: movieId
-    
-  }
+  };
   console.log(userInfo,userId)
   const deleteComment = async () => {
     try {
@@ -22,7 +20,7 @@ export default function Comment({ comment, userId, id, movieId, userInfo }: any)
         setCommetDelete(false)
         toast.success("comment deleted succesfully")
       }
-    } catch (error:any) {
+    } catch (error:unknown) {
       toast.error("error while deleting comment")
       
     }

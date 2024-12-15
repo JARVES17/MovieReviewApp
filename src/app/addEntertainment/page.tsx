@@ -1,12 +1,12 @@
 "use client"
 import Navbar from '@/components/Navbar/Navbar'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'sonner'
-import { json } from 'stream/consumers'
 
 export default function addEntertainement() {
-
+    const router = useRouter()
     const genera = [
         {
             id: 1,
@@ -80,7 +80,7 @@ export default function addEntertainement() {
         
     }
     const handelCancel = ()=>{
-        
+        router.push("/home")
     }
 
     return (

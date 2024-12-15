@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import connect from "@/dbConfig/dbConfig";
 import { getInfo } from "@/helper/userInfo";
 import User from "@/Models/userModel";
 
@@ -15,7 +14,7 @@ export async function POST(request: NextRequest) {
         })
         return NextResponse.json({message:"added to your WatchList", success:true},{status:201})
         
-    } catch (error:any) {
+    } catch (error:unknown) {
         return NextResponse.json({message:error,success:false},{status:500})
         
     }

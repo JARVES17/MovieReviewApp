@@ -2,26 +2,24 @@
 
 import Comment from "@/components/Comment"
 import Navbar from "@/components/Navbar/Navbar"
-import Comments from "@/Models/comments"
-import StarRatings from 'react-star-ratings'
 import axios from "axios"
 import Image from "next/image"
 import React, { useEffect, useState } from "react"
 import { toast } from "sonner"
 import Rating from "@/components/Rating"
-import { entertainemtData } from "@/app/types/types"
+import { commentArray, entertainemtData, userData } from "@/app/types/types"
 
 
 
 export default function DeatilSpecific({ params }: any) {
     const { id }: any = React.use(params)
     
-    const [userData, setUserData] = useState<any>()
+    const [userData, setUserData] = useState<userData>()
     const [added, setAdded] = useState(false)
     const [data, setData] = useState<entertainemtData>()
     const[rating,setRating]=useState()
-    const [addComment, setADdComment] = useState<Boolean>(false)
-    const [getcommentData, setGetCommentData] = useState<any>()
+    const [addComment, setADdComment] = useState<boolean>(false)
+    const [getcommentData, setGetCommentData] = useState<[commentArray]>()
     const [commentData, setCommentData] = useState({
         movieId: id,
         comment: "",
@@ -41,7 +39,7 @@ export default function DeatilSpecific({ params }: any) {
             setGetCommentData(allComments)
 
             setADdComment(!addComment)
-        } catch (error) {
+        } catch (error: unknown) {
             toast.error("Cant add Comment")
             console.log(error)
         }
@@ -56,7 +54,7 @@ export default function DeatilSpecific({ params }: any) {
             }
               
             
-        } catch (error:any) {
+        } catch (error: unknown) {
             toast.error("Cant add to watchList")
         }
     }
@@ -69,7 +67,7 @@ export default function DeatilSpecific({ params }: any) {
             setData(response.data.collection)
             setGetCommentData(response.data.collection.replies)
            
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.log(error)
         }
     }
@@ -77,7 +75,7 @@ export default function DeatilSpecific({ params }: any) {
         try {
             const responseofuser = await axios.get("/api/user/userInfo/getUserInfo")
             setUserData(responseofuser.data.userDtata)
-        } catch (error) {
+        } catch (error: unknown) {
             console.log(error)
         }
     }
@@ -88,7 +86,7 @@ export default function DeatilSpecific({ params }: any) {
                 toast.success(response.data.message)
                 getData()
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.log(error)
             toast.error("cant update Rating")
 
@@ -141,7 +139,7 @@ export default function DeatilSpecific({ params }: any) {
                 </div>
                 {getcommentData && (
                     <div className="w-full">
-                        {getcommentData.map((values: any, ind: number) => <Comment userInfo={userData} key={ind} id={values._id} movieId={data._id} comment={values.value} userId={values.UserName}  />)}
+                        {commentData && getcommentData.map((values: any, ind: number) => <Comment userInfo={userData} key={ind} id={values._id} movieId={data._id} comment={values.value} userId={values.UserName}  />)}
                     </div>
 
                 )}

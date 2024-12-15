@@ -9,12 +9,12 @@ export async function GET(request: NextRequest) {
        
         const userData = getInfo(request)
        
-        let userDtata = await User.findById({ _id: userData.id })
+        const userDtata = await User.findById({ _id: userData.id })
       
         return NextResponse.json({message:"watchListData", success:true,userDtata},{status:200})
         
-    } catch (error:any) {
-        return NextResponse.json({message:error.message,success:false},{status:300})
+    } catch (error:unknown) {
+        return NextResponse.json({message:error,success:false},{status:300})
         
     }
 }
@@ -33,7 +33,7 @@ export async function PUT(request:NextRequest) {
         })
         const user = await User.findById(userData.id)
         return NextResponse.json({message:"updated Successfully",user,success:true},{status:200})
-    } catch (error:any) {
+    } catch (error:unknown) {
         return NextResponse.json({message:"error while updating user"},{status:300})
     }
 }

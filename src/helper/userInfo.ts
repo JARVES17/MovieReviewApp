@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken"
+import jwt, { JwtPayload } from "jsonwebtoken"
 import { NextRequest, NextResponse } from "next/server"
 
 export const getInfo = (request: NextRequest)=>{
@@ -6,7 +6,7 @@ export const getInfo = (request: NextRequest)=>{
         const token = request.cookies.get("token")?.value 
         if (token === "")
             return NextResponse.json({ message: "Cant get token", success: false }, { status: 300 })
-        const userData:any = jwt.verify(token, process.env.HIDDEN_KEY)
+        const userData:string | JwtPayload= jwt.verify(token, process.env.HIDDEN_KEY)
        
         if (!userData)
             return NextResponse.json({ message: "token cant verify", success: false }, { status: 300 })
@@ -14,8 +14,9 @@ export const getInfo = (request: NextRequest)=>{
         console.log(userData)
         return userData
         
-    } catch (error:any) {
-        throw new Error(error)
+    } catch (error:unknown) {
+       return NextResponse.json({ message: "token cant verify", success: false,error }, { status: 300 })
+        
         
     }
     

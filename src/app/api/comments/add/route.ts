@@ -28,8 +28,8 @@ export async function POST(request: NextRequest){
    
         return NextResponse.json({success:true,getData},{status:200})
 
-    } catch (error:any) {
-        return NextResponse.json({error},{status:500})
+    } catch (error:unknown) {
+        return NextResponse.json({message:error},{status:500})
         
     }
 }
@@ -46,8 +46,8 @@ export async function PATCH(request: NextRequest) {
             }
         })
         return NextResponse.json({message:"comment delted succesfully",success:true},{status:200})
-    } catch (error:any) {
-        return NextResponse.json({message:"error occured while deleting comment"})
+    } catch (error:unknown) {
+        return NextResponse.json({message:"error occured while deleting comment",error:error})
         
     }
 }

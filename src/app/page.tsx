@@ -23,7 +23,7 @@ export default function LoginpPage() {
         toast.success(response.data.message)
       }
 
-    } catch (error: any) {
+    } catch (error) {
       console.log(error)
       toast.error(error.response.data.message)
 
@@ -82,7 +82,7 @@ export default function LoginpPage() {
         </div>
         <div className="flex justify-around w-full">
           <Link href="/signup">
-            <span className="underline ml-1 text-cyan-700  hover:text-cyan-900">Can't Sign In?</span>
+            <span className="underline ml-1 text-cyan-700  hover:text-cyan-900">Can&apos;t Sign In?</span>
           </Link>
           <Link href="/signup">
             <span className="underline ml-1 text-cyan-700  hover:text-cyan-900">Forgot Username?</span>

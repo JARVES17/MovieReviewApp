@@ -12,7 +12,7 @@ const connect = async () => {
             process.exit()
         })
         
-    } catch (error:any) {
+    } catch (error:unknown) {
         console.log("error while Connecting to Db " + error)
         
     }

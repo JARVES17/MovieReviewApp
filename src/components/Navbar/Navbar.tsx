@@ -2,13 +2,11 @@
 import { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { AiFillEnvironment } from "react-icons/ai";
-import { RiDashboardFill } from "react-icons/ri";
 import { IoLogIn } from "react-icons/io5";
 import { IoMdSettings, IoMdHome } from "react-icons/io";
 import { FaBookmark, FaSearch } from "react-icons/fa";
 import { MdLocalMovies, MdLiveTv } from "react-icons/md";
 import Link from "next/link"
-import { MovieContext } from "@/app/context/context";
 import { toast } from "sonner";
 import axios from "axios";
 import { entertainemtData } from "@/app/types/types";
@@ -29,10 +27,9 @@ export default function Navbar() {
         try {
           const response = await axios.get("/api/entertainments/crData/")
             if (response.data.success) {
-                // toast.success("ready to go")
                 setData(response.data.alldata)
             }
-        } catch (error:any) {
+        } catch (error:unknown) {
             toast.error("Failed to featch Data")
             
         }

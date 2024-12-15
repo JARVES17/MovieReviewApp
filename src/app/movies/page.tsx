@@ -25,7 +25,7 @@ export default function MoviePage(){
         console.log(response.data)
 
         setResponseData(response.data.alldata)
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.log(error)
       }
     }

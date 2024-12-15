@@ -22,7 +22,7 @@ export default function Setting() {
                 setUserData({ name: data.name, email: data.email, userName: data.username, password: data.password })
             }
            
-       } catch (error:any) {
+       } catch (error) {
         toast.error(error.data.message)
         
        }
@@ -36,8 +36,8 @@ export default function Setting() {
                 setUserData({ name: data.name, email: data.email, userName: data.username, password: data.password })
             }
             
-        } catch (error:any) {
-            
+        } catch (error:unknown) {
+            console.log(error)
             
         }
     }

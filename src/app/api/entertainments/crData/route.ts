@@ -1,5 +1,4 @@
 import connect from "@/dbConfig/dbConfig";
-import { getInfo } from "@/helper/userInfo";
 import Entertainement from "@/Models/entertainmentModel";
 import { writeFile } from "fs/promises";
 import {NextResponse,NextRequest} from "next/server"
@@ -19,7 +18,7 @@ export async function POST(request: NextRequest) {
         const retriveArr=JSON.parse(generas)
         
         
-        let arr:string[]=[]
+        const arr:string[]=[]
        retriveArr.forEach((element:{value:string}) => {
             arr.push(element.value)
         });
@@ -53,8 +52,8 @@ export async function POST(request: NextRequest) {
            newCollection
        },{status:200})
         
-    } catch (error:any) {
-        return NextResponse.json({sucess:false,message:"error occured while adding in entertaiment model"},{status:300})
+    } catch (error:unknown) {
+        return NextResponse.json({sucess:false,message:"error occured while adding in entertaiment model",error:error},{status:300})
         
     }
 }
@@ -62,8 +61,7 @@ export async function POST(request: NextRequest) {
 export async function GET() {
     try {
         
-        let data:any = await Entertainement.find()
-        //  console.log(data)
+        const data:any = await Entertainement.find()
         if (!data) {
             return NextResponse.json({success:false,message:"Something Went Wrong Try again later"},{status:404})
         }
@@ -72,7 +70,7 @@ export async function GET() {
             success: true,
             alldata:data,
         },{status:200})
-    } catch (error:any) {
+    } catch (error:unknown) {
         return NextResponse.json({error},{status:400})
         
     }

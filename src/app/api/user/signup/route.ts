@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
             user
         },{status:201})
         
-    } catch (error:any) {
+    } catch (error:unknown) {
         return NextResponse.json({message:"error Occured while Signup"},{status:300})
         
     }
