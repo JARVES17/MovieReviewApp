@@ -13,9 +13,10 @@ export interface entertainemtData {
 
 export interface commentArray{
    
-        id: string,
-        commets: string,
-        userId: string,
+        _id: string,
+        value: string,
+    UserName: string,
+    entertainemtId:string
 
 }
 

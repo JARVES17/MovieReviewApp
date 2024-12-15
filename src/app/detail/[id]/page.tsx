@@ -11,7 +11,7 @@ import { commentArray, entertainemtData, userData } from "@/app/types/types"
 
 interface DetailSpecificProps {
     params: {
-        id: string|any; 
+        id: string; 
     };
 }
 
@@ -115,7 +115,7 @@ export default function DeatilSpecific({ params }: DetailSpecificProps) {
             <div className="flex gap-5">
                 <button className="bg-orange-400 p-2 border rounded-md text-white font-semibold">Watch Now</button>
 
-                {userData && (userData.watchList.includes(id) ||added) ? <button className="bg-blue-700 p-2 border rounded-md text-white font-semibold" onClick={addToWatchList}>Remove</button> :
+                {userData && (userData.watchList.filter((value)=>value.toString()===id) ||added) ? <button className="bg-blue-700 p-2 border rounded-md text-white font-semibold" onClick={addToWatchList}>Remove</button> :
                     <button className="bg-blue-700 p-2 border rounded-md text-white font-semibold" onClick={addToWatchList}>Add to watchList </button>
                 }
                
@@ -144,7 +144,7 @@ export default function DeatilSpecific({ params }: DetailSpecificProps) {
                 </div>
                 {getcommentData && (
                     <div className="w-full">
-                        {commentData && getcommentData.map((values: commentArray|any , ind: number) => <Comment userInfo={userData} key={ind} id={values._id} movieId={data._id} comment={values.value} userId={values.UserName}  />)}
+                        {commentData && getcommentData.map((values: commentArray , ind: number) => <Comment userInfo={userData} key={ind} id={values._id} movieId={data._id} comment={values.value} userId={values.UserName}  />)}
                     </div>
 
                 )}

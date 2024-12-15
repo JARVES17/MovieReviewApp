@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken"
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest } from "next/server"
 
 
 export const getInfo = (request: NextRequest)=>{
