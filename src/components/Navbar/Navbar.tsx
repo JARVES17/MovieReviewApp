@@ -9,7 +9,7 @@ import { MdLocalMovies, MdLiveTv } from "react-icons/md";
 import Link from "next/link"
 import { toast } from "sonner";
 import axios from "axios";
-import { entertainemtData } from "@/app/types/types";
+import { entertainemtData } from "@/types/types";
 import { useRouter } from "next/navigation";
 
 
@@ -22,7 +22,6 @@ export default function Navbar() {
         setInputSearch(e.target.value)
         console.log(data,"data of navbar")
     }
-    console.log(data)
     const getData = async () => {
         try {
           const response = await axios.get("/api/entertainments/crData/")
@@ -125,6 +124,11 @@ export default function Navbar() {
                 <Link href="/addEntertainment">
                 <li className={`text-gray-300 text-sm items-center flex gap-x-4 cursor-pointer hover:bg-light-white rounded-md  p-2 mt-3`}>
                     <span className={`text-base flex-1`}>Add Movies and tv shows</span>
+                    </li>
+                </Link>
+                <Link href="/updateEntertainment">
+                <li className={`text-gray-300 text-sm items-center flex gap-x-4 cursor-pointer hover:bg-light-white rounded-md  p-2 mt-3`}>
+                    <span className={`text-base flex-1`}>Update</span>
                     </li>
                 </Link>
             </ul>

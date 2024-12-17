@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Structure from "@/components/Structure";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { entertainemtData } from "../types/types";
+import { entertainemtData } from "../../types/types";
 
 
 export default function HomePage() {

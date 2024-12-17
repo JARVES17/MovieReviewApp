@@ -9,7 +9,7 @@ connect()
 export async function POST(request: NextRequest){
     try {
         const requestBody = await request.json()
-        const userData=getInfo(request)
+        const userData = getInfo(request)
         const { movieId, comment } = requestBody
         if (comment==="") {
             return NextResponse.json({message:"enter value to addComment"},{status:400})

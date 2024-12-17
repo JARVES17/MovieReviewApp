@@ -5,16 +5,16 @@ import User from "@/Models/userModel";
 import { JwtPayload } from "jsonwebtoken";
 
 connect()   
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
     try {
-       
-        const userData:JwtPayload= getInfo(request)
-       
-        const userDtata = await User.findById({ _id: userData.id })
+              const userData:JwtPayload= getInfo(request)
+
+        const user = await User.findById({ _id: userData.id })
       
-        return NextResponse.json({message:"watchListData", success:true,userDtata},{status:200})
+        return NextResponse.json({message:"userData", success:true,user},{status:200})
         
-    } catch (error:unknown) {
+    } catch (error: unknown) {
+        console.log(error)
         return NextResponse.json({message:error,success:false},{status:300})
         
     }

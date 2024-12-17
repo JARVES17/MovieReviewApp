@@ -42,7 +42,7 @@ export default function AddEntertainement() {
     const handelUpload = async () => {
         
         if (!data.file) {
-            alert("Please upload a file");
+            toast.error("Please Select File to upload")
             return;
         }
 
@@ -58,7 +58,8 @@ export default function AddEntertainement() {
         
             if (response.data.success) {
                 toast.success(response.data.message)
-                setdata({name:"",description:"",isMovie:false,file:null})
+                setdata({ name: "", description: "", isMovie: false, file: null })
+                setSeletedGeneras([])
             }
             
         } catch (error: unknown) {

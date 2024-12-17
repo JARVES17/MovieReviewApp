@@ -16,14 +16,16 @@ export default function Setting() {
     })
     const getUserData = async () => {
         try {
-            const response = await axios.get("/api/user/userInfo/getUserInfo")
+            const response = await axios.post("/api/user/userInfo/getUserInfo/")
+            console.log(response)
             if (response.data.success) {
-                const data = response.data.userDtata
+                const data = response.data.user
                 setUserData({ name: data.name, email: data.email, userName: data.username, password: data.password })
             }
            
-       } catch (error) {
-        toast.error(error.data.message)
+        } catch (error: unknown) {
+            console.log(error)
+        toast.error("error while fetching user data")
         
        }
     }

@@ -16,13 +16,17 @@ const EntertainmentSchema=new mongoose.Schema({
     genera: {
         type: [String],
         required:[true,"Please enter genera"]
-    },
+    },  
     isMovie: {
         type: Boolean,
         default:false
     },
     replies: {
         type: [{type:mongoose.Types.ObjectId, ref:"Comment"}],
+    },
+    isHidden: {
+        type: Boolean,
+        default:false
     },
     rating: Number,
     totalRatingCount:Number,

@@ -6,8 +6,10 @@ export const getInfo = (request:NextRequest)=>{
     try {
         const token = request.cookies.get("token")?.value 
     
-        const userData= jwt.verify(token, process.env.HIDDEN_KEY) as JwtPayload
+        const userData = jwt.verify(token, process.env.HIDDEN_KEY) as JwtPayload
+        console.log(userData)
         return userData
+        
         
     } catch (error) {
 

@@ -1,5 +1,5 @@
 "use client"
-import { userData } from '@/app/types/types'
+import { userData } from '@/types/types'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'sonner'
@@ -14,12 +14,10 @@ interface commentProps{
 export default function Comment({ comment, userId, id, movieId, userInfo }:commentProps) {
 
   const [commentDelte, setCommetDelete] = useState(true)
-  
   const obj: { commentId: string; movieId: string } = {
     commentId: id,
     movieId: movieId
   };
-  console.log(userInfo,userId)
   const deleteComment = async () => {
     try {
       const response = await axios.patch("/api/comments/add/", obj)

@@ -7,17 +7,14 @@ import Image from "next/image"
 import React, { useEffect, useState } from "react"
 import { toast } from "sonner"
 import Rating from "@/components/Rating"
-import { commentArray, entertainemtData, userData } from "@/app/types/types"
+import { commentArray, entertainemtData, params, userData } from "@/types/types"
+import { useParams } from "next/navigation"
 
-interface DetailSpecificProps {
-    params: {
-        id: string; 
-    };
-}
 
-export default function DeatilSpecific({ params }: DetailSpecificProps) {
-    const { id }=params
-    console.log(typeof(id),"id")
+
+export default function DeatilSpecific() {
+    const idData = useParams<params>()
+    const {id}=idData
     const [userData, setUserData] = useState<userData>()
     const [added, setAdded] = useState(false)
     const [data, setData] = useState<entertainemtData>()
@@ -27,7 +24,6 @@ export default function DeatilSpecific({ params }: DetailSpecificProps) {
     const [commentData, setCommentData] = useState({
         movieId: id,
         comment: "",
-        userId:""
     })
     const objId = {
         id: id,
@@ -41,7 +37,7 @@ export default function DeatilSpecific({ params }: DetailSpecificProps) {
             const responseOfComments = await axios.post("/api/comments/add", commentData)
             const allComments = responseOfComments.data.getData.replies
             setGetCommentData(allComments)
-
+            getData()
             setADdComment(!addComment)
         } catch (error: unknown) {
             toast.error("Cant add Comment")
@@ -78,10 +74,13 @@ export default function DeatilSpecific({ params }: DetailSpecificProps) {
     }
     const getUserData = async () => {
         try {
-            const responseofuser = await axios.get("/api/user/userInfo/getUserInfo")
-            setUserData(responseofuser.data.userDtata)
+         
+            const responseofuser = await axios.post("/api/user/userInfo/getUserInfo/")
+            console.log(responseofuser,"user response")
+            setUserData(responseofuser.data.user)
         } catch (error: unknown) {
             console.log(error)
+            console.log("cant run fucntion")
         }
     }
     const updateRating = async () => {
@@ -98,11 +97,9 @@ export default function DeatilSpecific({ params }: DetailSpecificProps) {
         }
 
     }
-
     useEffect(() => {
         
         getUserData()
-        
         getData()
     }, [])
 
@@ -113,9 +110,11 @@ export default function DeatilSpecific({ params }: DetailSpecificProps) {
 
             {data && (<Image src={data.image} alt={data.name} width={400} height={800} />)}
             <div className="flex gap-5">
-                <button className="bg-orange-400 p-2 border rounded-md text-white font-semibold">Watch Now</button>
+                {/* <button className="bg-orange-400 p-2 border rounded-md text-white font-semibold">Watch Now</button> */}
 
-                {userData && (userData.watchList.filter((value)=>value.toString()===id) ||added) ? <button className="bg-blue-700 p-2 border rounded-md text-white font-semibold" onClick={addToWatchList}>Remove</button> :
+                {userData && (userData.watchList.some((value) => {
+                    return value==id
+                }) || added) ? <button className="bg-blue-700 p-2 border rounded-md text-white font-semibold" onClick={addToWatchList}>Remove</button> :
                     <button className="bg-blue-700 p-2 border rounded-md text-white font-semibold" onClick={addToWatchList}>Add to watchList </button>
                 }
                
@@ -126,7 +125,7 @@ export default function DeatilSpecific({ params }: DetailSpecificProps) {
                 <button onClick={updateRating} className="text-gray-400">Add</button>
                 <Rating setRating={setRating} rating={rating} />
             </div>
-            <p>{(data?.rating / data?.totalRatingCount) || 0}</p>
+            <p>{data?.totalRatingCount && (data?.rating / data?.totalRatingCount).toFixed(1) ||"0"}</p>
             <div className="flex flex-col items-center justify-center w-full gap-3">
                 <p className="font-serif text-justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{data?.description}</p>
                 <div className="flex justify-center">

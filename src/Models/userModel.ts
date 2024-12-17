@@ -25,6 +25,10 @@ const UserSchema = new mongoose.Schema({
     watchList: {
         type:[{type:mongoose.Types.ObjectId,ref:"Entertainement"}]
     },
+    isBlocked: {
+        type: Boolean,
+        default:false
+    },
     isVerified: {
         type: Boolean,
         default:false

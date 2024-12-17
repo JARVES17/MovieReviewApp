@@ -8,12 +8,13 @@ export async function POST(request:NextRequest) {
     try {
         const requestBody = await request.json()
         const {id}=requestBody
-        console.log(id ,"get Specific")
-        let collection = await Entertainement.findById(id)
+        let collection = await Entertainement.findById({ _id: id })
+     
         if (collection.replies.length === 0) {
             return NextResponse.json({success:true,collection},{status:200})
         }
-         collection=await Entertainement.findById(id).populate("replies")
+        collection = await Entertainement.findById({_id:id}).populate("replies")
+       
         return NextResponse.json({success:true,collection},{status:200})
 
     } catch (error: unknown) {
