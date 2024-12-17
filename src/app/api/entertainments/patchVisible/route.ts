@@ -1,7 +1,7 @@
 import connect from "@/dbConfig/dbConfig";
 import Entertainement from "@/Models/entertainmentModel";
 import { entertainemtData } from "@/types/types";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 connect()
 
