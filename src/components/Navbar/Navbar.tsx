@@ -45,6 +45,20 @@ export default function Navbar() {
             console.log("cant run fucntion")
         }
     }
+    const hanelLogout = async () => {
+        try {
+            const response = await axios.get("/api/user/logout/")
+            console.log(response)
+            if (response.data.success) {
+                router.push("/")
+                toast.success("logged out succesfully")
+            }
+        } catch (error:unknown) {
+            console.log(error)
+            
+        }
+       
+    }
     
     useEffect(() => {
         getUserData()
@@ -123,14 +137,16 @@ export default function Navbar() {
                 </Link>
                 
         
-                <Link href="/">
-                    <li className={`text-gray-300 text-sm items-center flex gap-x-4 cursor-pointer hover:bg-light-white rounded-md  p-2 mt-3`}>
+                
+                <li className={`text-gray-300 text-sm items-center flex gap-x-4 cursor-pointer hover:bg-light-white rounded-md  p-2 mt-3`}><button onClick={hanelLogout} className="w-full text-left">
                         <span className="text-2xl block float-left">
                             <IoLogIn />
                         </span>
-                        <span className={`text-base flex-1 `}>LogOut</span>
+                    <span className={`text-base flex-1  ml-4`}>LogOut</span>
+                </button>
                     </li>
-                </Link>
+                 
+
 
                 {userData && userData.isAdmin ?
                 

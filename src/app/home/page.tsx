@@ -14,9 +14,9 @@ export default function HomePage() {
         const getData = async () => {
             try {
                 const response = await axios.get("/api/entertainments/crData/")
-                console.log(response.data.result)
+                console.log(response.data.alldata)
 
-                setResponseData(response.data.result)
+                setResponseData(response.data.alldata)
 
             } catch (error: unknown) {
                 console.log(error)

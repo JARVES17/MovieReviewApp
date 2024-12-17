@@ -15,9 +15,14 @@ export async function POST(request: NextRequest) {
         if (!userPresent) {
             return NextResponse.json({message:`we cannot find user with  this emial:${email}`})
         }
+        
         const passwordCheck=password===userPresent.password?true:false
         if (!passwordCheck) {
             return NextResponse.json({message:`${userPresent.username} we think you have entered wrong password`},{status:300})
+        }
+
+        if (userPresent.isBlocked) {
+            return NextResponse.json({message:"You have been blocked by admin",success:false},{status:200})
         }
         const tokenPayload = {
             id: userPresent._id,

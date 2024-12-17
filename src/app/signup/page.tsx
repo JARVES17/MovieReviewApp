@@ -38,7 +38,7 @@ export default function SignupPage() {
             <div className=" shadow-2xl flex flex-col gap-4 items-center w-96 py-5 my-1 ">
                 <h1 className="text-gray-500  text-2xl mt-2">SignUp</h1>
                 <div className="text-left text-gray-500 ">Already Account,
-                    <Link href="/login">
+                    <Link href="/">
                         <span className="underline ml-1 text-cyan-700  hover:text-cyan-900">Login</span>
                     </Link>
                 </div>
