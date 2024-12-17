@@ -49,7 +49,8 @@ export async function POST(request: NextRequest) {
            newCollection
        },{status:200})
         
-    } catch (error:unknown) {
+    } catch (error: unknown) {
+        console.log(error)
         return NextResponse.json({sucess:false,message:"error occured while adding in entertaiment model",error:error},{status:300})
         
     }
