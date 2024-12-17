@@ -23,13 +23,18 @@ export interface commentArray{
 
 }
 
-export interface userData{
+export interface userDataInterface{
+    _id:string,
+    isVerified:boolean,
+    email: string,
     id: string,
     username:string,
     name: string,
     password: string,
     isAdmin: boolean,
-    watchList:[string]
+    isBlocked:boolean,
+    watchList: [string],
+    createdAt:string
     
 }
 

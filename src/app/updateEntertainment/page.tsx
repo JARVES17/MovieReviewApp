@@ -1,7 +1,8 @@
 "use client"
 
 import Navbar from "@/components/Navbar/Navbar"
-import { entertainemtData } from "@/types/types"
+import { getDate } from "@/helper/extratDateFromString"
+import { entertainemtData,userDataInterface } from "@/types/types"
 import axios from "axios"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
@@ -11,6 +12,7 @@ export default function UpdateEntertainement() {
     const [ismovie, setIsmovie] = useState<boolean>()
     const [selectGenras, setSeletedGeneras] = useState<string[]>([])
     const [data, setData] = useState<[entertainemtData]>()
+    const [userData, setUserData] = useState<[userDataInterface]>()
     const [updateData, setUpdateData] = useState({
         name: "",
         description: "",
@@ -109,13 +111,31 @@ export default function UpdateEntertainement() {
         
        }
     }
+    const handelBlock = async (id: string) => {
+        const data = {
+            id:id
+        }
+        try {
+            const response = await axios.patch("/api/user/getAllusers", data)
+            if (response.data.success) {
+                toast.success("Update successfully")
+                getUserData()
+            }
+            
+        } catch (error:unknown) {
+            console.log(error)
+            toast.error("error occured in block/unblock")
+            
+        }
+        
+        
+    }
     const handelVisible = async (id: string) => {
         
            const data= {
                 id: id
             }
         
-        console.log(id)
         try {
             const response = await axios.patch("/api/entertainments/crData", data)
             if (response.data.success) {
@@ -144,13 +164,23 @@ export default function UpdateEntertainement() {
             console.log(error)
         }
     }
-  
+    console.log(userData,"userData Navbar")
+    const getUserData = async () => {
+        try {
+            const responseofuser = await axios.get("/api/user/getAllusers/")
+            console.log(responseofuser)
+            setUserData(responseofuser.data.allUsers)
+        } catch (error: unknown) {
+            console.log(error)
+            console.log("cant run fucntion")
+        }
+    }
     useEffect(() => {
         setUpdateData({ ...updateData, isMovie: ismovie })
     }, [ismovie])
        useEffect(() => {
             
-       
+            getUserData()
             getData()
        }, [])
    return( <div className="flex">
@@ -246,6 +276,47 @@ export default function UpdateEntertainement() {
                </div>
 
            </div>
+           <table className="table-fixed w-full">
+               <thead>
+                   <tr className="bg-black text-white font-semibold h-14">
+                       <th>Sr.</th>
+                       <th>Name</th>
+                       <th>userName</th>
+                       <th>email</th>
+                       <th>isVerified</th>
+                       <th>FirstLogin</th>
+                       <th>Status</th>
+                       <th>Block/unBlock</th>
+                       
+                   </tr>
+               </thead>
+               <tbody>
+                   {userData ? userData.map((values: userDataInterface, ind: number) => {
+                       return (
+                           <tr key={ind} className={`text-center text-dark-purple ${ind % 2 === 0 ? "bg-[#fff3ef]" : "bg-gray-300"}`} >
+                               <td>{ind + 1}</td>
+                               <td>{values.name}</td>
+                               <td>{values.username}</td>
+                               <td>{values.email}</td>
+                               <td>{values.isVerified?"yes":"false"}</td>
+                               <td>{getDate(values.createdAt)}</td>
+                               <td>{values.isBlocked ? "Blocked" : "unBlocked"}</td>
+                               <td><button
+                                   className="text-red-500 border-red-500 border rounded-md p-2"
+                                   onClick={() => handelBlock(values._id)}
+                               >{values.isBlocked ? "Unblock" : "block"}</button></td>
+                               
+                           </tr>
+                       )
+                   }) :
+                       <tr>
+                           <td>Error</td></tr>
+                   }
+
+               </tbody>
+           </table>
+
+
         </div>
     </div>
    )

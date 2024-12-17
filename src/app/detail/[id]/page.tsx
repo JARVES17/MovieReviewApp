@@ -7,7 +7,7 @@ import Image from "next/image"
 import React, { useEffect, useState } from "react"
 import { toast } from "sonner"
 import Rating from "@/components/Rating"
-import { commentArray, entertainemtData, params, userData } from "@/types/types"
+import { commentArray, entertainemtData, params, userDataInterface } from "@/types/types"
 import { useParams } from "next/navigation"
 
 
@@ -15,7 +15,7 @@ import { useParams } from "next/navigation"
 export default function DeatilSpecific() {
     const idData = useParams<params>()
     const {id}=idData
-    const [userData, setUserData] = useState<userData>()
+    const [userData, setUserData] = useState<userDataInterface>()
     const [added, setAdded] = useState(false)
     const [data, setData] = useState<entertainemtData>()
     const[rating,setRating]=useState()
@@ -44,7 +44,26 @@ export default function DeatilSpecific() {
             console.log(error)
         }
     }   
+    const removeFromWatchList = async (id: string) => {
+        const data = {
+            id:id
+        }
+        try {
+        const response = await axios.put("/api/user/watchList/add", data)
+        console.log(response)
+        if (response.data.success) {
+            toast.success(response.data.message)
+            setAdded(false)
+        }
+
+
+    } catch (error: unknown) {
+        console.log(error)
+        toast.error("Cant add to watchList")
+    }
+    }
     const addToWatchList = async () => {
+
         try {
             const response = await axios.post("/api/user/watchList/add", objId)
             console.log(response)
@@ -76,7 +95,6 @@ export default function DeatilSpecific() {
         try {
          
             const responseofuser = await axios.post("/api/user/userInfo/getUserInfo/")
-            console.log(responseofuser,"user response")
             setUserData(responseofuser.data.user)
         } catch (error: unknown) {
             console.log(error)
@@ -114,7 +132,7 @@ export default function DeatilSpecific() {
 
                 {userData && (userData.watchList.some((value) => {
                     return value==id
-                }) || added) ? <button className="bg-blue-700 p-2 border rounded-md text-white font-semibold" onClick={addToWatchList}>Remove</button> :
+                }) || added) ? <button className="bg-blue-700 p-2 border rounded-md text-white font-semibold" onClick={()=>removeFromWatchList(id)}>Remove</button> :
                     <button className="bg-blue-700 p-2 border rounded-md text-white font-semibold" onClick={addToWatchList}>Add to watchList </button>
                 }
                

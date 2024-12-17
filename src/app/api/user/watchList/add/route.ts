@@ -19,3 +19,20 @@ export async function POST(request: NextRequest) {
         
     }
 }
+export async function PUT(request:NextRequest) {
+    try {
+        const requestBody = await request.json()
+        const userData = getInfo(request)
+        
+        await User.updateOne({ _id: userData.id }, {
+            $pull: {
+                watchList:requestBody.id
+            }
+        })
+        return NextResponse.json({message:"removed from your WatchList", success:true},{status:200})
+        
+    } catch (error:unknown) {
+        return NextResponse.json({message:error,success:false},{status:500})
+        
+    }
+}

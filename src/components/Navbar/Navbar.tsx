@@ -2,15 +2,16 @@
 import { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { AiFillEnvironment } from "react-icons/ai";
-import { IoLogIn } from "react-icons/io5";
+import { IoLogIn, IoAddCircle } from "react-icons/io5";
 import { IoMdSettings, IoMdHome } from "react-icons/io";
 import { FaBookmark } from "react-icons/fa";
 import { MdLocalMovies, MdLiveTv } from "react-icons/md";
 import Link from "next/link"
 import { toast } from "sonner";
 import axios from "axios";
-import { entertainemtData } from "@/types/types";
+import { entertainemtData, userDataInterface } from "@/types/types";
 import { useRouter } from "next/navigation";
+import { GrDocumentUpdate } from "react-icons/gr";
 
 
 export default function Navbar() {
@@ -18,9 +19,9 @@ export default function Navbar() {
     const router=useRouter()
     const [data, setData] = useState<[entertainemtData]>()
     const [inputSearch, setInputSearch] = useState("")
+    const[userData,setUSerData]=useState<userDataInterface>()
     const handelSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputSearch(e.target.value)
-        console.log(data,"data of navbar")
     }
     const getData = async () => {
         try {
@@ -35,7 +36,18 @@ export default function Navbar() {
         }
     }
     
+    const getUserData = async() => {
+        try {
+            const responseofuser = await axios.post("/api/user/userInfo/getUserInfo")
+            setUSerData(responseofuser.data.user)
+        } catch (error: unknown) {
+            console.log(error)
+            console.log("cant run fucntion")
+        }
+    }
+    
     useEffect(() => {
+        getUserData()
         getData()
     },[])
     
@@ -109,28 +121,43 @@ export default function Navbar() {
                     <span className={`text-base flex-1 `}>Settings</span>
                     </li>
                 </Link>
-                <Link href="/">
-                <li className={`text-gray-300 text-sm items-center flex gap-x-4 cursor-pointer hover:bg-light-white rounded-md  p-2 mt-3`}>
-                            <span className="text-2xl block float-left">
-                            <IoLogIn />
-                            </span>
-                    <span className={`text-base flex-1 `}>LogOut</span>
-                    </li>
-                </Link>
+                
         
 
 
-                {/* TemP route */}
-                <Link href="/addEntertainment">
-                <li className={`text-gray-300 text-sm items-center flex gap-x-4 cursor-pointer hover:bg-light-white rounded-md  p-2 mt-3`}>
-                    <span className={`text-base flex-1`}>Add Movies and tv shows</span>
+                {userData && userData.isAdmin ?
+                
+                    <div>
+                       
+                           
+                    
+                        <Link href="/addEntertainment">
+                            <li className={`text-gray-300 text-sm items-center flex gap-x-4 cursor-pointer hover:bg-light-white rounded-md  p-2 mt-3`}>
+                                <span className="text-2xl block float-left">
+                                    <IoAddCircle />
+                                </span>
+                                <span className={`text-base flex-1`}>Add </span>
+                            </li>
+                        </Link>
+                        <Link href="/updateEntertainment">
+                            <li className={`text-gray-300 text-sm items-center flex gap-x-4 cursor-pointer hover:bg-light-white rounded-md  p-2 mt-3`}>
+                                <span className="text-2xl block float-left">
+                                    <GrDocumentUpdate />
+                                </span>
+                                <span className={`text-base flex-1`}>Update</span>
+                            </li>
+                        </Link>
+           </div>:""
+                }
+                <Link href="/">
+                    <li className={`text-gray-300 text-sm items-center flex gap-x-4 cursor-pointer hover:bg-light-white rounded-md  p-2 mt-3`}>
+                        <span className="text-2xl block float-left">
+                            <IoLogIn />
+                        </span>
+                        <span className={`text-base flex-1 `}>LogOut</span>
                     </li>
                 </Link>
-                <Link href="/updateEntertainment">
-                <li className={`text-gray-300 text-sm items-center flex gap-x-4 cursor-pointer hover:bg-light-white rounded-md  p-2 mt-3`}>
-                    <span className={`text-base flex-1`}>Update</span>
-                    </li>
-                </Link>
+                
             </ul>
 
             </div>

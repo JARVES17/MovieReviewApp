@@ -22,7 +22,8 @@ export async function POST(request: NextRequest) {
         const tokenPayload = {
             id: userPresent._id,
             username: userPresent.username,
-            email:userPresent.email
+            email: userPresent.email,
+            admin: userPresent.isAdmin
         }
         const token = jwt.sign(tokenPayload, process.env.HIDDEN_KEY!)
         console.log("here")
