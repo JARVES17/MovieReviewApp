@@ -19,9 +19,9 @@ export async function POST(request: NextRequest) {
     
     try {
         cloudinary.config({ 
-        cloud_name:process.env.NAME, 
-        api_key:  process.env.API_KEY, 
-        api_secret: process.env.SECRET_KEY
+        cloud_name:"dcwbybhv7", 
+        api_key:  "851122215895434", 
+        api_secret: "smT2IQgsmZT96ESBp0qy1sVqARY"
  });
         
         const requestBody = await request.formData()
