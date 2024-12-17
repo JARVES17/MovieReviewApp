@@ -9,11 +9,6 @@ import fs from "fs/promises"
 
 
 connect()
-
-
-
-
-
  
 interface Results{
     public_id: string,
@@ -71,7 +66,7 @@ export async function POST(request: NextRequest) {
             totalRatingCount:0
            
         })
-
+        console.log(data)
         return NextResponse.json({success:true,message:"movie added"},{status:200})
         
     } catch (error: unknown) {
