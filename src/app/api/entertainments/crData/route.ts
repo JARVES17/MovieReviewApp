@@ -1,11 +1,11 @@
 import { entertainemtData } from "@/types/types";
 import connect from "@/dbConfig/dbConfig";
 import Entertainement from "@/Models/entertainmentModel";
-import { writeFile } from "fs/promises";
+
 import {NextResponse,NextRequest} from "next/server"
-import path from "path";
+
 import { v2 as cloudinary } from 'cloudinary';
-import fs from "fs/promises"
+
 
 
 connect()
