@@ -4,54 +4,77 @@ import Entertainement from "@/Models/entertainmentModel";
 import { writeFile } from "fs/promises";
 import {NextResponse,NextRequest} from "next/server"
 import path from "path";
+import { v2 as cloudinary } from 'cloudinary';
 import fs from "fs/promises"
 
 
 connect()
 
 
+
+cloudinary.config({ 
+        cloud_name:process.env.NAME, 
+        api_key:  process.env.API_KEY, 
+        api_secret: process.env.SECRET_KEY
+ });
+
+ 
+interface Results{
+    public_id: string,
+    [key:string]:any
+    }
+
 export async function POST(request: NextRequest) {
+    
     try {
+        
         const requestBody = await request.formData()
         const name=requestBody.get("name")
         const description=requestBody.get("description")
         const isMovie=requestBody.get("isMovie")
-        const file = requestBody.get("file") as File
+        const file = requestBody.get("file") as File | null
         const generas = requestBody.get("genera") as string
-        const retriveArr=JSON.parse(generas)
+        const retriveArr = JSON.parse(generas)
+       if (!file) {
+        return NextResponse.json({ message: "file not found" }, { status: 400 });
+    }
+
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
+    const result = new Promise<Results>((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+            
+            { folder: "movie-Image" },
+            (err, result) => {
+                if (err) {
+                    reject(err.message); // Reject if there's an error
+                } else {
+                    resolve(result as Results); // Resolve the result with the correct type
+                }
+            }
+        );
+        uploadStream.end(buffer); // Finish the upload process
+    });
     
-   
-        const collection=await Entertainement.findOne({name:name})
-
-        if (collection) {
-            return NextResponse.json({success:false,message:`This Movie ${name} already Present on Website`},{status:300})
-        }
-
-        const bytes=await file.arrayBuffer()
-        const buffer=Buffer.from(bytes)
-
-        const uploadPath = `public/upload/${file.name.replaceAll(" ", "_")}`
-        await writeFile(path.join(process.cwd(), uploadPath), buffer)
-
-        const getPath=`/upload/${file.name.replaceAll(" ", "_")}`
-        const newCollection = await Entertainement.create({
+        const uploadResult = await result;
+        
+        const data = await Entertainement.create({
             name: name,
             description: description,
             isMovie: isMovie,
-            image: getPath,
-            genera: retriveArr,
+            generas: retriveArr,
+            image:uploadResult.url,
             rating: 0,
             totalRatingCount:0
-            
+           
         })
-        return NextResponse.json({
-            success: true, message: "added successfully",
-           newCollection
-       },{status:200})
+
+        return NextResponse.json({success:true},{status:200})
         
-    } catch (error: unknown) {
-        console.log(error)
-        return NextResponse.json({sucess:false,message:"error occured while adding in entertaiment model",error:error},{status:300})
+    } catch (error:unknown) {
+        console.log("File upload error",error)
+        return NextResponse.json({success:false},{status:400})
         
     }
 }

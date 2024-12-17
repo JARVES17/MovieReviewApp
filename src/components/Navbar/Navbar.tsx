@@ -123,7 +123,14 @@ export default function Navbar() {
                 </Link>
                 
         
-
+                <Link href="/">
+                    <li className={`text-gray-300 text-sm items-center flex gap-x-4 cursor-pointer hover:bg-light-white rounded-md  p-2 mt-3`}>
+                        <span className="text-2xl block float-left">
+                            <IoLogIn />
+                        </span>
+                        <span className={`text-base flex-1 `}>LogOut</span>
+                    </li>
+                </Link>
 
                 {userData && userData.isAdmin ?
                 
@@ -149,14 +156,7 @@ export default function Navbar() {
                         </Link>
            </div>:""
                 }
-                <Link href="/">
-                    <li className={`text-gray-300 text-sm items-center flex gap-x-4 cursor-pointer hover:bg-light-white rounded-md  p-2 mt-3`}>
-                        <span className="text-2xl block float-left">
-                            <IoLogIn />
-                        </span>
-                        <span className={`text-base flex-1 `}>LogOut</span>
-                    </li>
-                </Link>
+               
                 
             </ul>
 

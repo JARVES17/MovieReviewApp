@@ -17,7 +17,6 @@ const Structure = ({ id, name, url }: entertainemtData) => {
     }
   return (
       <div >
-          
       <Image src={url} alt={name} width={200} height={500} onClick={handelRedirect}
         className='w-[200px] h-[300px] object-cover  cursor-pointer hover:scale-105 duration-200' />
       <div className='text-center mt-2 font-mono '>{name}</div>
