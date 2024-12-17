@@ -11,7 +11,6 @@ export default function UpdateEntertainement() {
     const [ismovie, setIsmovie] = useState<boolean>()
     const [selectGenras, setSeletedGeneras] = useState<string[]>([])
     const [data, setData] = useState<[entertainemtData]>()
-    // const [userData, setUserData] = useState<userData>()
     const [updateData, setUpdateData] = useState({
         name: "",
         description: "",
@@ -143,22 +142,13 @@ export default function UpdateEntertainement() {
             console.log(error)
         }
     }
-    // const getUserData = async () => {
-    //     try {
-    //         const responseofuser = await axios.get("/api/user/userInfo/getUserInfo/")
-    //         console.log(responseofuser, "user response")
-    //         setUserData(responseofuser.data.user)
-    //     } catch (error: unknown) {
-    //         console.log(error)
-    //         console.log("cant run fucntion")
-    //     }
-    // }
+  
     useEffect(() => {
         setUpdateData({ ...updateData, isMovie: ismovie })
     }, [ismovie])
        useEffect(() => {
             
-            // getUserData()
+       
             getData()
        }, [])
    return( <div className="flex">
