@@ -21,7 +21,7 @@ cloudinary.config({
  
 interface Results{
     public_id: string,
-    [key:string]:any
+    [key:string]:string
     }
 
 export async function POST(request: NextRequest) {
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
     
         const uploadResult = await result;
         
-        const data = await Entertainement.create({
+        await Entertainement.create({
             name: name,
             description: description,
             isMovie: isMovie,
