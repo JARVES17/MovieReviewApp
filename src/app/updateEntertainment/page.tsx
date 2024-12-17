@@ -1,7 +1,7 @@
 "use client"
 
 import Navbar from "@/components/Navbar/Navbar"
-import { entertainemtData, userData } from "@/types/types"
+import { entertainemtData } from "@/types/types"
 import axios from "axios"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
@@ -103,7 +103,8 @@ export default function UpdateEntertainement() {
                getData()
                toast.success("deleted successfully")
            }
-       } catch (error:unknown) {
+       } catch (error: unknown) {
+           console.log(error)
         toast.error("error occured while deleting ")
         
        }
@@ -122,6 +123,7 @@ export default function UpdateEntertainement() {
                 toast.success("updated successfully")
             }
         } catch (error: unknown) {
+            console.log(error)
             toast.error("error occured while updating ")
 
         }
