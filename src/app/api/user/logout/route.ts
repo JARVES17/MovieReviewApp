@@ -9,7 +9,8 @@ export async function GET() {
         response.cookies.set("token","", { httpOnly: true })
         return response;
         
-    } catch (error:unknown) {
+    } catch (error: unknown) {
+        console.log(error)
         return NextResponse.json({message:"error in logout", success:true},{status:500})
         
     }
