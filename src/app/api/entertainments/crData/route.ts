@@ -12,11 +12,7 @@ connect()
 
 
 
-cloudinary.config({ 
-        cloud_name:process.env.NAME, 
-        api_key:  process.env.API_KEY, 
-        api_secret: process.env.SECRET_KEY
- });
+
 
  
 interface Results{
@@ -27,6 +23,11 @@ interface Results{
 export async function POST(request: NextRequest) {
     
     try {
+        cloudinary.config({ 
+        cloud_name:process.env.NAME, 
+        api_key:  process.env.API_KEY, 
+        api_secret: process.env.SECRET_KEY
+ });
         
         const requestBody = await request.formData()
         const name=requestBody.get("name")
@@ -48,6 +49,7 @@ export async function POST(request: NextRequest) {
             { folder: "movie-Image" },
             (err, result) => {
                 if (err) {
+                    console.log(err.message)
                     reject(err.message); // Reject if there's an error
                 } else {
                     resolve(result as Results); // Resolve the result with the correct type
@@ -59,7 +61,7 @@ export async function POST(request: NextRequest) {
     
         const uploadResult = await result;
         
-        await Entertainement.create({
+        const data=await Entertainement.create({
             name: name,
             description: description,
             isMovie: isMovie,
@@ -70,9 +72,10 @@ export async function POST(request: NextRequest) {
            
         })
 
-        return NextResponse.json({success:true},{status:200})
+        return NextResponse.json({success:true,message:"movie added"},{status:200})
         
-    } catch (error:unknown) {
+    } catch (error: unknown) {
+        
         console.log("File upload error",error)
         return NextResponse.json({success:false},{status:400})
         
